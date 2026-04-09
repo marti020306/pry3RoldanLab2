@@ -124,6 +124,31 @@ namespace pry3RoldanLab2
         {
             Desbloquear();
         }
+
+
+        private void CargaDatosDePrueba()  // creamos un procedimiento para precargar datos de prueba
+        {
+            Cliente[Indice].Codigo = 10;
+            Cliente[Indice].Usuario = "Nico";
+            Cliente[Indice].Deuda = 200;
+            Cliente[Indice].Limite = 1500;
+            Indice++;
+            Cliente[Indice].Codigo = 20;
+            Cliente[Indice].Usuario = "Ana";
+            Cliente[Indice].Deuda = 300;
+            Cliente[Indice].Limite = 4000;
+            Indice++;
+            Cliente[Indice].Codigo = 30;
+            Cliente[Indice].Usuario = "Diego";
+            Cliente[Indice].Deuda = 0;
+            Cliente[Indice].Limite = 3000;
+            Indice++;
+            Cliente[Indice].Codigo = 40;
+            Cliente[Indice].Usuario = "Seba";
+            Cliente[Indice].Deuda = 100;
+            Cliente[Indice].Limite = 2000;
+            Indice++;
+        }
     }
     
 
