@@ -52,10 +52,29 @@
     <Compile Include="frmGestion.Designer.cs">
       <DependentUpon>frmGestion.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmListarClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmListarClientes.Designer.cs">
+      <DependentUpon>frmListarClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pagina Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pagina Principal.Designer.cs">
+      <DependentUpon>Pagina Principal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Vector.cs" />
     <EmbeddedResource Include="frmGestion.resx">
       <DependentUpon>frmGestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmListarClientes.resx">
+      <DependentUpon>frmListarClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pagina Principal.resx">
+      <DependentUpon>Pagina Principal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

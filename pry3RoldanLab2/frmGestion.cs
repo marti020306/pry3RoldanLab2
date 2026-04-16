@@ -32,35 +32,55 @@ namespace pry3RoldanLab2
 
         //Declarar Indice
 
-        private Int32 Indice = 0;
+        private Int32 IND = 0;
 
 
 
         private void btnCargar_Click(object sender, EventArgs e)
         {
-            if (Indice < Cliente.Length)
+            if (Vector.IND < Vector.Clientes.Length)
             {
-                Cliente[Indice].Codigo = Convert.ToInt32(mtbCodigo.Text);
-                Cliente[Indice].Usuario = txtUsuario.Text;
-                Cliente[Indice].Deuda = Convert.ToDecimal(mtbDeuda.Text);
-                Cliente[Indice].Limite = Convert.ToDecimal(mtbLimite.Text);
-                MessageBox.Show("Cliente Cargado");
-                Indice++;
-                Limpiar();
+                Int32 i = 0;
+                while (Vector.Clientes[i].Codigo != Convert.ToInt32(txtCodigo.Text) && i < IND)//dentro del rango, busca el codigo que ingreso
+                {
+                    i++;
+                }
+
+                if (i == Vector.IND)
+                {
+                    Vector.Clientes[IND].Codigo = Convert.ToInt32(txtCodigo.Text);
+                    Vector.Clientes[IND].Usuario = txtUsuario.Text;
+                    Vector.Clientes[IND].Deuda = Convert.ToDecimal(txtDeuda.Text);
+                    Vector.Clientes[IND].Limite = Convert.ToDecimal(txtLimite.Text);
+                    Vector.IND++;
+                    MessageBox.Show("Cliente cargado correctamente");
+                    txtCodigo.Text = "";
+                    txtUsuario.Text = "";
+                    txtDeuda.Text = "";
+                    txtLimite.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show("El codigo ingresado ya existe, ingrese otro");
+                    txtCodigo.Text = "";
+                }
             }
             else
             {
                 MessageBox.Show("No se pueden cargar mas clientes");
             }
+            Listar();
+
+
 
         }
 
         private void Limpiar()
         {
-            mtbCodigo.Clear();
+           txtCodigo.Clear();
             txtUsuario.Clear();
-            mtbDeuda.Clear();
-            mtbLimite.Clear();
+            txtDeuda.Clear();
+            txtLimite.Clear();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -71,85 +91,104 @@ namespace pry3RoldanLab2
         private void btnListar_Click(object sender, EventArgs e)
 
         {
-            Decimal TotalDeuda = 0;
-
-            for (int i = 0; i < Indice; i++)
-            {
-                dataGridView1.Rows.Add(Cliente[i].Codigo, Cliente[i].Usuario, Cliente[i].Deuda, Cliente[i].Limite);
-                TotalDeuda += Cliente[i].Deuda;
-            }
-           maskedTextBox1.Text = TotalDeuda.ToString();
+           Listar();
         }
 
-        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-
-        }
+        
 
         private void frmGestion_Load(object sender, EventArgs e)
         {
-           
+           btnCargar.Enabled = false;
+           precarga();
+           Listar();
+
+
         }
 
-        private void Desbloquear()
+      
+
+        private void txtUsuario_TextChanged(object sender, EventArgs e)
         {
-            if (mtbCodigo.Text != "" && mtbDeuda.Text != "" && txtUsuario.Text != "" && mtbLimite.Text != "")
+            
+        }
+
+       
+
+        
+
+        private void Listar()
+        {
+            dgvConsulta.Rows.Clear();
+            for (int i = 0; i < Vector.IND; i++)
+            {
+                dgvConsulta.Rows.Add(Vector.Clientes[i].Codigo, Vector.Clientes[i].Usuario, Vector.Clientes[i].Deuda, Vector.Clientes[i].Limite);
+            }
+        }
+
+        private void precarga()
+        {
+            Vector.Clientes[IND].Codigo = 10;
+            Vector.Clientes[IND].Usuario = "Ana";
+            Vector.Clientes[IND].Deuda = 1000;
+            Vector.Clientes[IND].Limite = 10000;
+            Vector.IND++;
+            Vector.Clientes[IND].Codigo = 20;
+            Vector.Clientes[IND].Usuario = "Diego";
+            Vector.Clientes[IND].Deuda = 0;
+            Vector.Clientes[IND].Limite = 20000;
+            Vector.IND++;
+            Vector.Clientes[IND].Codigo = 30;
+            Vector.Clientes[IND].Usuario = "Maria";
+            Vector.Clientes[IND].Deuda = 3000;
+            Vector.Clientes[IND].Limite = 30000;
+            Vector.IND++;
+
+        }
+
+        private void btnDeudores_Click(object sender, EventArgs e)
+        {
+            Decimal TotalDeuda = 0;
+            dgvConsulta.Rows.Clear();
+            for (int i = 0; i < Vector.IND; i++)
+            {
+                if (Vector.Clientes[i].Deuda > 0)
+                {
+                    dgvConsulta.Rows.Add(Vector.Clientes[i].Codigo, Vector.Clientes[i].Usuario, Vector.Clientes[i].Limite, Vector.Clientes[i].Deuda);
+                    TotalDeuda = TotalDeuda + Vector.Clientes[i].Deuda;
+                }
+            }
+            lblDeudores.Text = TotalDeuda.ToString();
+        }
+
+        private void txtCodigo_TextChanged(object sender, EventArgs e)
+        {
+            Comprobar();
+        }
+
+        private void txtDeuda_TextChanged(object sender, EventArgs e)
+        {
+            Comprobar();
+        }
+
+        private void txtLimite_TextChanged(object sender, EventArgs e)
+        {
+            Comprobar();
+
+        }
+
+        private void Comprobar()
+        {
+            if (txtCodigo.Text != "" && txtUsuario.Text != "" && txtDeuda.Text != "" && txtLimite.Text != "")
             {
                 btnCargar.Enabled = true;
-                btnListar.Enabled = true;
             }
             else
             {
-                btnListar.Enabled = false;
                 btnCargar.Enabled = false;
             }
         }
 
-        private void mtbCodigo_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-            Desbloquear();
-        }
-
-        private void txtUsuario_TextChanged(object sender, EventArgs e)
-        {
-            Desbloquear();
-        }
-
-        private void mtbDeuda_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-            Desbloquear();
-        }
-
-        private void mtbLimite_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-            Desbloquear();
-        }
 
 
-        private void CargaDatosDePrueba()  // creamos un procedimiento para precargar datos de prueba
-        {
-            Cliente[Indice].Codigo = 10;
-            Cliente[Indice].Usuario = "Nico";
-            Cliente[Indice].Deuda = 200;
-            Cliente[Indice].Limite = 1500;
-            Indice++;
-            Cliente[Indice].Codigo = 20;
-            Cliente[Indice].Usuario = "Ana";
-            Cliente[Indice].Deuda = 300;
-            Cliente[Indice].Limite = 4000;
-            Indice++;
-            Cliente[Indice].Codigo = 30;
-            Cliente[Indice].Usuario = "Diego";
-            Cliente[Indice].Deuda = 0;
-            Cliente[Indice].Limite = 3000;
-            Indice++;
-            Cliente[Indice].Codigo = 40;
-            Cliente[Indice].Usuario = "Seba";
-            Cliente[Indice].Deuda = 100;
-            Cliente[Indice].Limite = 2000;
-            Indice++;
-        }
     }
-    
-
 }

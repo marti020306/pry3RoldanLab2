@@ -16,7 +16,7 @@ namespace pry3RoldanLab2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmGestion());
+            Application.Run(new Pagina_Principal());
         }
     }
 }
