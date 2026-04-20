@@ -17,41 +17,22 @@ namespace pry3RoldanLab2
             InitializeComponent();
         }
 
-        //Declarar Registro Cliente
-        private struct RegCliente
-        {
-            public Int32 Codigo;
-            public string Usuario;
-            public Decimal Deuda;
-            public Decimal Limite;
-        }
-
-        //Declarar Vector
-
-       private RegCliente[] Cliente = new RegCliente[10];
-
-        //Declarar Indice
-
-        private Int32 IND = 0;
-
-
-
         private void btnCargar_Click(object sender, EventArgs e)
         {
             if (Vector.IND < Vector.Clientes.Length)
             {
                 Int32 i = 0;
-                while (Vector.Clientes[i].Codigo != Convert.ToInt32(txtCodigo.Text) && i < IND)//dentro del rango, busca el codigo que ingreso
+                while (i < Vector.IND && Vector.Clientes[i].Codigo != Convert.ToInt32(txtCodigo.Text)) //dentro del rango, busca el codigo que ingreso
                 {
                     i++;
                 }
 
                 if (i == Vector.IND)
                 {
-                    Vector.Clientes[IND].Codigo = Convert.ToInt32(txtCodigo.Text);
-                    Vector.Clientes[IND].Usuario = txtUsuario.Text;
-                    Vector.Clientes[IND].Deuda = Convert.ToDecimal(txtDeuda.Text);
-                    Vector.Clientes[IND].Limite = Convert.ToDecimal(txtLimite.Text);
+                    Vector.Clientes[Vector.IND].Codigo = Convert.ToInt32(txtCodigo.Text);
+                    Vector.Clientes[Vector.IND].Nombre = txtUsuario.Text;
+                    Vector.Clientes[Vector.IND].Deuda = Convert.ToDecimal(txtDeuda.Text);
+                    Vector.Clientes[Vector.IND].Limite = Convert.ToDecimal(txtLimite.Text);
                     Vector.IND++;
                     MessageBox.Show("Cliente cargado correctamente");
                     txtCodigo.Text = "";
@@ -70,14 +51,11 @@ namespace pry3RoldanLab2
                 MessageBox.Show("No se pueden cargar mas clientes");
             }
             Listar();
-
-
-
         }
 
         private void Limpiar()
         {
-           txtCodigo.Clear();
+            txtCodigo.Clear();
             txtUsuario.Clear();
             txtDeuda.Clear();
             txtLimite.Clear();
@@ -89,60 +67,50 @@ namespace pry3RoldanLab2
         }
 
         private void btnListar_Click(object sender, EventArgs e)
-
         {
-           Listar();
+            Listar();
         }
-
-        
 
         private void frmGestion_Load(object sender, EventArgs e)
         {
-           btnCargar.Enabled = false;
-           precarga();
-           Listar();
-
-
+            btnCargar.Enabled = false;
+            precarga();
+            Listar();
         }
-
-      
 
         private void txtUsuario_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
-
-       
-
-        
 
         private void Listar()
         {
             dgvConsulta.Rows.Clear();
             for (int i = 0; i < Vector.IND; i++)
             {
-                dgvConsulta.Rows.Add(Vector.Clientes[i].Codigo, Vector.Clientes[i].Usuario, Vector.Clientes[i].Deuda, Vector.Clientes[i].Limite);
+                dgvConsulta.Rows.Add(Vector.Clientes[i].Codigo, Vector.Clientes[i].Nombre, Vector.Clientes[i].Deuda, Vector.Clientes[i].Limite);
             }
         }
 
         private void precarga()
         {
-            Vector.Clientes[IND].Codigo = 10;
-            Vector.Clientes[IND].Usuario = "Ana";
-            Vector.Clientes[IND].Deuda = 1000;
-            Vector.Clientes[IND].Limite = 10000;
-            Vector.IND++;
-            Vector.Clientes[IND].Codigo = 20;
-            Vector.Clientes[IND].Usuario = "Diego";
-            Vector.Clientes[IND].Deuda = 0;
-            Vector.Clientes[IND].Limite = 20000;
-            Vector.IND++;
-            Vector.Clientes[IND].Codigo = 30;
-            Vector.Clientes[IND].Usuario = "Maria";
-            Vector.Clientes[IND].Deuda = 3000;
-            Vector.Clientes[IND].Limite = 30000;
+            Vector.Clientes[Vector.IND].Codigo = 10;
+            Vector.Clientes[Vector.IND].Nombre = "Ana";
+            Vector.Clientes[Vector.IND].Deuda = 1000;
+            Vector.Clientes[Vector.IND].Limite = 10000;
             Vector.IND++;
 
+            Vector.Clientes[Vector.IND].Codigo = 20;
+            Vector.Clientes[Vector.IND].Nombre = "Diego";
+            Vector.Clientes[Vector.IND].Deuda = 0;
+            Vector.Clientes[Vector.IND].Limite = 20000;
+            Vector.IND++;
+
+            Vector.Clientes[Vector.IND].Codigo = 30;
+            Vector.Clientes[Vector.IND].Nombre = "Maria";
+            Vector.Clientes[Vector.IND].Deuda = 3000;
+            Vector.Clientes[Vector.IND].Limite = 30000;
+            Vector.IND++;
         }
 
         private void btnDeudores_Click(object sender, EventArgs e)
@@ -153,7 +121,7 @@ namespace pry3RoldanLab2
             {
                 if (Vector.Clientes[i].Deuda > 0)
                 {
-                    dgvConsulta.Rows.Add(Vector.Clientes[i].Codigo, Vector.Clientes[i].Usuario, Vector.Clientes[i].Limite, Vector.Clientes[i].Deuda);
+                    dgvConsulta.Rows.Add(Vector.Clientes[i].Codigo, Vector.Clientes[i].Nombre, Vector.Clientes[i].Limite, Vector.Clientes[i].Deuda);
                     TotalDeuda = TotalDeuda + Vector.Clientes[i].Deuda;
                 }
             }
@@ -173,7 +141,6 @@ namespace pry3RoldanLab2
         private void txtLimite_TextChanged(object sender, EventArgs e)
         {
             Comprobar();
-
         }
 
         private void Comprobar()
@@ -187,8 +154,5 @@ namespace pry3RoldanLab2
                 btnCargar.Enabled = false;
             }
         }
-
-
-
     }
 }
