@@ -30,5 +30,28 @@ namespace pry3RoldanLab2
           
             formulario.Show();
         }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void listadoDeTodosLosDeudoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmClientesDeudores frmClientesDeudores = new frmClientesDeudores();
+            frmClientesDeudores.Show();
+        }
+
+        private void listarOrdenadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           frmListarClientes frmListarClientes = new frmListarClientes();
+           frmListarClientes.Show();
+        }
+
+        private void listadoDeTodosLosClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmListarTodo frmListarTodosClientes = new frmListarTodo();
+            frmListarTodosClientes.Show();
+        }
     }
 }
